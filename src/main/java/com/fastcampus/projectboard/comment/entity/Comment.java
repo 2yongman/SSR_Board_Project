@@ -1,6 +1,7 @@
 package com.fastcampus.projectboard.comment.entity;
 
 import com.fastcampus.projectboard.article.entity.Article;
+import com.fastcampus.projectboard.config.AuditingFields;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Comment {
+public class Comment extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,22 +27,6 @@ public class Comment {
     @Setter
     @Column(nullable = false, length = 500)
     private String content;
-
-    @CreatedDate
-    @Column
-    private LocalDateTime createdAt;
-
-    @CreatedBy
-    @Column
-    private String createdBy;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;
-
-    @LastModifiedBy
-    @Column
-    private String modifiedBy;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "ARTICLE_ID")
